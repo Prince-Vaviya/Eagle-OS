@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eagle OS</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="desktop-shell" aria-label="Eagle OS desktop">
+        <header class="menu-bar">
+            <div class="menu-left">
+                <button class="menu-brand" type="button" aria-label="Open Eagle OS menu">
+                    <span class="brand-mark mini" aria-hidden="true"><span></span></span>
+                    <strong>Eagle OS</strong>
+                </button>
+                <nav class="menu-items" aria-label="System menus">
+                    <button type="button">Finder</button>
+                    <button type="button">Settings</button>
+                    <button type="button">View</button>
+                    <button type="button">Window</button>
+                </nav>
+            </div>
+
+            <div class="menu-right" aria-label="System status">
+                <span class="status-icon wifi" aria-hidden="true"></span>
+                <span class="status-icon battery" aria-hidden="true"></span>
+                <span>101%</span>
+            </div>
+        </header>
+
+        <section class="desktop">
+
+            <aside class="widget-stack" aria-hidden="true">
+                <div class="desktop-widget clock-widget">
+                    <span class="widget-label">Now</span>
+                    <strong id="widget-time">--:--</strong>
+                    <span id="widget-date">Thursday</span>
+                </div>
+            </aside>
+
+            <section class="setup-window" role="dialog" aria-labelledby="welcome-title" aria-describedby="welcome-subtitle">
+                <div class="window-titlebar">
+                    <div class="traffic-lights" aria-hidden="true">
+                        <span class="close"></span>
+                        <span class="minimize"></span>
+                        <span class="zoom"></span>
+                    </div>
+                    <span>Setup Assistant</span>
+                </div>
+
+                <div class="setup-body">
+                    <div class="setup-emblem" aria-hidden="true">
+                        <span class="brand-mark large"><span></span></span>
+                        <div class="palette-strip">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+
+                    <div class="setup-copy">
+                        <p class="eyebrow">First Run</p>
+                        <h1 id="welcome-title">Hello, Welcome to Eagle OS</h1>
+                        <p id="welcome-subtitle" class="statement">Computers were built to calculate.</p>
+                        <p class="statement accent">People were born to imagine.</p>
+                    </div>
+                </div>
+
+                <footer class="window-actions">
+                    <span class="setup-step" aria-hidden="true">Welcome</span>
+                    <button class="continue-button" type="button" aria-label="Continue to Eagle OS">
+                        <span>Continue</span>
+                        <span class="button-arrow" aria-hidden="true">→</span>
+                    </button>
+                </footer>
+            </section>
+        </section>
+
+        <nav class="dock" aria-label="Dock">
+            <button class="dock-item finder" type="button" aria-label="Finder" data-tooltip="Finder"></button>
+            <button class="dock-item launch" type="button" aria-label="Launchpad" data-tooltip="Launchpad"></button>
+            <button class="dock-item notes" type="button" aria-label="Notes" data-tooltip="Notes"></button>
+            <button class="dock-item terminal" type="button" aria-label="Terminal" data-tooltip="Terminal"></button>
+            <button class="dock-item settings" type="button" aria-label="Settings" data-tooltip="Settings"></button>
+        </nav>
+    </main>
+
+    <script src="index.js"></script>
+</body>
+</html>
