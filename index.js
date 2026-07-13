@@ -26,6 +26,23 @@ const calDay = document.getElementById("cal-day");
 const calDate = document.getElementById("cal-date");
 const calWish = document.getElementById("cal-wish");
 
+const weatherWindow = document.getElementById("weather-window");
+const dockWeather = document.getElementById("weather");
+const closeWeather = document.getElementById("close-weather");
+const weatherTemp = document.getElementById("weather-temp");
+const weatherDesc = document.getElementById("weather-desc");
+
+const notesWindow = document.getElementById("notes-window");
+const dockNotes = document.getElementById("notes");
+const closeNotes = document.getElementById("close-notes");
+const notesTextarea = document.getElementById("notes-textarea");
+
+const playerWindow = document.getElementById("player-window");
+const dockPlayer = document.getElementById("player");
+const closePlayer = document.getElementById("close-player");
+const playBtn = document.getElementById("play-btn");
+const bgAudio = document.getElementById("bg-audio");
+
 const dailyWishes = [
     "Rest and recharge. Wishing you a beautifully peaceful Sunday!",
     "Embrace the fresh start of a new week. You've got this!",
@@ -392,10 +409,142 @@ closeCalendar.addEventListener("click", () => {
     calendarWindow.classList.remove("show-modal");
 });
 
+// Weather Logic
+async function fetchWeather() {
+    try {
+        const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=40.7143&longitude=-74.006&current_weather=true");
+        const data = await res.json();
+        const temp = Math.round(data.current_weather.temperature);
+        weatherTemp.innerText = `${temp}°`;
+        weatherDesc.innerText = "Live Update"; 
+    } catch (e) {
+        document.getElementById("weather-city").innerText = "Nandasar";
+        weatherTemp.innerText = "42°C";
+        weatherDesc.innerText = "Sunny";
+    }
+}
+
+// Notes Logic
+const savedNotes = localStorage.getItem("eagle_os_notes");
+if (savedNotes) {
+    notesTextarea.value = savedNotes;
+}
+notesTextarea.addEventListener("input", () => {
+    localStorage.setItem("eagle_os_notes", notesTextarea.value);
+});
+
+// Player Logic
+let isPlaying = false;
+playBtn.addEventListener("click", () => {
+    isPlaying = !isPlaying;
+    if (isPlaying) {
+        playBtn.innerText = "⏸";
+        playBtn.classList.add("playing");
+        bgAudio.play();
+    } else {
+        playBtn.innerText = "▶";
+        playBtn.classList.remove("playing");
+        bgAudio.pause();
+    }
+});
+
+// New App Toggles
+dockWeather.addEventListener("click", () => {
+    fetchWeather();
+    weatherWindow.style.display = "block";
+    weatherWindow.classList.remove("show-modal");
+    void weatherWindow.offsetWidth; 
+    weatherWindow.classList.add("show-modal");
+    bringToFront(weatherWindow);
+});
+closeWeather.addEventListener("click", () => {
+    weatherWindow.style.display = "none";
+});
+
+dockNotes.addEventListener("click", () => {
+    notesWindow.style.display = "block";
+    notesWindow.classList.remove("show-modal");
+    void notesWindow.offsetWidth; 
+    notesWindow.classList.add("show-modal");
+    bringToFront(notesWindow);
+});
+closeNotes.addEventListener("click", () => {
+    notesWindow.style.display = "none";
+});
+
+dockPlayer.addEventListener("click", () => {
+    playerWindow.style.display = "block";
+    playerWindow.classList.remove("show-modal");
+    void playerWindow.offsetWidth; 
+    playerWindow.classList.add("show-modal");
+    bringToFront(playerWindow);
+});
+closePlayer.addEventListener("click", () => {
+    playerWindow.style.display = "none";
+});
+
 // Bring to front on click anywhere inside the window
 terminalWindow.addEventListener("mousedown", () => bringToFront(terminalWindow));
 calculatorWindow.addEventListener("mousedown", () => bringToFront(calculatorWindow));
 calendarWindow.addEventListener("mousedown", () => bringToFront(calendarWindow));
+weatherWindow.addEventListener("mousedown", () => bringToFront(weatherWindow));
+notesWindow.addEventListener("mousedown", () => bringToFront(notesWindow));
+playerWindow.addEventListener("mousedown", () => bringToFront(playerWindow));
+
+// Draggable Windows Logic
+function makeDraggable(element, handle) {
+    let isDragging = false;
+    let startX, startY;
+
+    handle.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        document.body.style.userSelect = 'none'; 
+        handle.style.cursor = 'grabbing';
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+
+        startX = e.clientX;
+        startY = e.clientY;
+
+        const style = window.getComputedStyle(element);
+        const top = parseFloat(style.top);
+        const left = parseFloat(style.left);
+
+        element.style.top = (top + dy) + 'px';
+        element.style.left = (left + dx) + 'px';
+    });
+
+    document.addEventListener('mouseup', () => {
+        isDragging = false;
+        document.body.style.userSelect = '';
+        handle.style.cursor = 'grab';
+    });
+}
+
+const terminalTitlebar = terminalWindow.querySelector('.titlebar');
+makeDraggable(terminalWindow, terminalTitlebar);
+
+const calculatorTitlebar = calculatorWindow.querySelector('.titlebar');
+makeDraggable(calculatorWindow, calculatorTitlebar);
+
+const calendarTitlebar = calendarWindow.querySelector('.titlebar');
+makeDraggable(calendarWindow, calendarTitlebar);
+
+const weatherTitlebar = weatherWindow.querySelector('.titlebar');
+makeDraggable(weatherWindow, weatherTitlebar);
+
+const notesTitlebar = notesWindow.querySelector('.titlebar');
+makeDraggable(notesWindow, notesTitlebar);
+
+const playerTitlebar = playerWindow.querySelector('.titlebar');
+makeDraggable(playerWindow, playerTitlebar);
 
 // Initialize Icons
 lucide.createIcons();
