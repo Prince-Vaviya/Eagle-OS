@@ -32,8 +32,8 @@ body {
 }
 
 .dot {
-    width: 12px;
-    height: 12px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
     margin-right: 8px;
 }
@@ -63,6 +63,8 @@ pre {
     line-height: 1.45;
     white-space: pre-wrap;
     text-shadow: 0 0 8px rgba(0, 255, 90, .35);
+    max-height: 60vh;
+    overflow-y: auto;
 }
 
 .cursor {

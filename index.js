@@ -11,6 +11,9 @@ const terminalWindow = document.getElementById("terminal-window");
 const dockTerminal = document.getElementById("dock-terminal");
 const closeTerminal = document.getElementById("close-terminal");
 const clock = document.getElementById("clock");
+const terminalInput = document.getElementById("terminal-input");
+
+let currentPrompt = "";
 
 // Real-time clock update
 function updateClock() {
@@ -65,10 +68,80 @@ let terminalBooted = false;
 function type() {
     if (i < boot.length) {
         terminal.innerHTML = boot.substring(0, i) + '<span class="cursor">█</span>';
+        terminal.scrollTop = terminal.scrollHeight;
         i += 3; // Print characters fast
         setTimeout(type, 1);
     } else {
+        let username = localStorage.getItem("eagle_os_username") || "Guest";
+        let lowercaseName = username.toLowerCase().replace(/\s+/g, '_');
+        currentPrompt = `eagle@${lowercaseName}:~$ `;
+        
+        boot += currentPrompt;
         terminal.innerHTML = boot + '<span class="cursor">█</span>';
+        initInteractiveTerminal();
+    }
+}
+
+function initInteractiveTerminal() {
+    terminalInput.focus();
+
+    terminalWindow.addEventListener("click", () => {
+        terminalInput.focus();
+    });
+
+    terminalInput.addEventListener("input", () => {
+        terminal.innerHTML = boot + terminalInput.value + '<span class="cursor">█</span>';
+        terminal.scrollTop = terminal.scrollHeight;
+    });
+
+    terminalInput.addEventListener("keydown", function(e) {
+        if (e.key === "Enter") {
+            const command = terminalInput.value.trim();
+            
+            boot += terminalInput.value + "\n";
+            processCommand(command);
+            
+            boot += currentPrompt;
+            terminal.innerHTML = boot + '<span class="cursor">█</span>';
+            terminal.scrollTop = terminal.scrollHeight;
+            
+            terminalInput.value = "";
+        }
+    });
+}
+
+function processCommand(cmd) {
+    if (!cmd) return;
+
+    const args = cmd.split(" ");
+    const baseCmd = args[0].toLowerCase();
+
+    switch(baseCmd) {
+        case "help":
+            boot += "Available commands:\n";
+            boot += "  help     - Show this help message\n";
+            boot += "  clear    - Clear the terminal screen\n";
+            boot += "  date     - Show current system date and time\n";
+            boot += "  whoami   - Print current user\n";
+            boot += "  echo     - Repeat text back to the terminal\n";
+            break;
+        case "clear":
+            boot = ""; 
+            break;
+        case "date":
+            boot += new Date().toString() + "\n";
+            break;
+        case "whoami":
+            let username = localStorage.getItem("eagle_os_username") || "Guest";
+            let lowercaseName = username.toLowerCase().replace(/\s+/g, '_');
+            boot += lowercaseName + "\n";
+            break;
+        case "echo":
+            boot += args.slice(1).join(" ") + "\n";
+            break;
+        default:
+            boot += `Command not found: ${baseCmd}\n`;
+            break;
     }
 }
 
@@ -109,7 +182,7 @@ Loading Portfolio Modules...
 Starting Services...
 Authentication Successful.
 
-eagle@${lowercaseName}:~$ `;
+`;
 
     loginOverlay.style.opacity = '0';
     setTimeout(() => {
