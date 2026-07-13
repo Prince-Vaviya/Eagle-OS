@@ -66,6 +66,43 @@
             </div>
         </div>
 
+        <!-- Window Container for Calculator -->
+        <div id="calculator-window" class="window-container calculator-window" style="display: none;">
+            <div class="calculator">
+                <div class="titlebar">
+                    <span class="dot red" id="close-calculator"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="calc-display" id="calc-display">0</div>
+                <div class="calc-buttons">
+                    <button class="calc-btn gray" data-action="clear" id="calc-clear">AC</button>
+                    <button class="calc-btn gray" data-action="toggle-sign">+/-</button>
+                    <button class="calc-btn gray" data-action="percent">%</button>
+                    <button class="calc-btn orange" data-action="operator" data-val="/">÷</button>
+
+                    <button class="calc-btn dark-gray" data-action="number" data-val="7">7</button>
+                    <button class="calc-btn dark-gray" data-action="number" data-val="8">8</button>
+                    <button class="calc-btn dark-gray" data-action="number" data-val="9">9</button>
+                    <button class="calc-btn orange" data-action="operator" data-val="*">×</button>
+
+                    <button class="calc-btn dark-gray" data-action="number" data-val="4">4</button>
+                    <button class="calc-btn dark-gray" data-action="number" data-val="5">5</button>
+                    <button class="calc-btn dark-gray" data-action="number" data-val="6">6</button>
+                    <button class="calc-btn orange" data-action="operator" data-val="-">-</button>
+
+                    <button class="calc-btn dark-gray" data-action="number" data-val="1">1</button>
+                    <button class="calc-btn dark-gray" data-action="number" data-val="2">2</button>
+                    <button class="calc-btn dark-gray" data-action="number" data-val="3">3</button>
+                    <button class="calc-btn orange" data-action="operator" data-val="+">+</button>
+
+                    <button class="calc-btn dark-gray double" data-action="number" data-val="0">0</button>
+                    <button class="calc-btn dark-gray" data-action="decimal">.</button>
+                    <button class="calc-btn orange" data-action="calculate">=</button>
+                </div>
+            </div>
+        </div>
+
         <!-- Dock -->
         <div class="dock-container">
             <div class="dock">

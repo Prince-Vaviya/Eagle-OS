@@ -13,6 +13,12 @@ const closeTerminal = document.getElementById("close-terminal");
 const clock = document.getElementById("clock");
 const terminalInput = document.getElementById("terminal-input");
 
+const calculatorWindow = document.getElementById("calculator-window");
+const dockCalculator = document.getElementById("calculator");
+const closeCalculator = document.getElementById("close-calculator");
+const calcDisplay = document.getElementById("calc-display");
+const calcButtons = document.querySelectorAll(".calc-btn");
+
 let currentPrompt = "";
 
 // Real-time clock update
@@ -191,6 +197,106 @@ Authentication Successful.
     }, 100);
 }
 
+// Calculator Logic
+let calcCurrentValue = "0";
+let calcPreviousValue = null;
+let calcOperator = null;
+let calcWaitingForNewValue = false;
+
+function updateCalcDisplay() {
+    let displayVal = calcCurrentValue;
+    if (displayVal.length > 9) {
+        displayVal = parseFloat(calcCurrentValue).toPrecision(9).replace(/\.?0+$/, "");
+    }
+    calcDisplay.innerText = displayVal;
+    
+    const clearBtn = document.getElementById("calc-clear");
+    if (calcCurrentValue !== "0" || calcPreviousValue !== null) {
+        clearBtn.innerText = "C";
+    } else {
+        clearBtn.innerText = "AC";
+    }
+}
+
+calcButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+        const action = btn.dataset.action;
+        const val = btn.dataset.val;
+
+        if (action === "number") {
+            if (calcWaitingForNewValue) {
+                calcCurrentValue = val;
+                calcWaitingForNewValue = false;
+            } else {
+                calcCurrentValue = calcCurrentValue === "0" ? val : calcCurrentValue + val;
+            }
+            updateCalcDisplay();
+        } 
+        else if (action === "decimal") {
+            if (calcWaitingForNewValue) {
+                calcCurrentValue = "0.";
+                calcWaitingForNewValue = false;
+            } else if (!calcCurrentValue.includes(".")) {
+                calcCurrentValue += ".";
+            }
+            updateCalcDisplay();
+        }
+        else if (action === "clear") {
+            if (calcCurrentValue !== "0") {
+                calcCurrentValue = "0";
+            } else {
+                calcPreviousValue = null;
+                calcOperator = null;
+            }
+            calcWaitingForNewValue = false;
+            updateCalcDisplay();
+        }
+        else if (action === "toggle-sign") {
+            calcCurrentValue = (parseFloat(calcCurrentValue) * -1).toString();
+            updateCalcDisplay();
+        }
+        else if (action === "percent") {
+            calcCurrentValue = (parseFloat(calcCurrentValue) / 100).toString();
+            updateCalcDisplay();
+        }
+        else if (action === "operator") {
+            handleOperator(val);
+        }
+        else if (action === "calculate") {
+            handleOperator(null);
+        }
+    });
+});
+
+function handleOperator(nextOperator) {
+    const inputValue = parseFloat(calcCurrentValue);
+
+    if (calcOperator && calcWaitingForNewValue) {
+        calcOperator = nextOperator;
+        return;
+    }
+
+    if (calcPreviousValue == null) {
+        calcPreviousValue = inputValue;
+    } else if (calcOperator) {
+        const result = calculate(calcPreviousValue, inputValue, calcOperator);
+        calcCurrentValue = String(result);
+        calcPreviousValue = result;
+        updateCalcDisplay();
+    }
+
+    calcWaitingForNewValue = true;
+    calcOperator = nextOperator;
+}
+
+function calculate(first, second, operator) {
+    if (operator === "+") return first + second;
+    if (operator === "-") return first - second;
+    if (operator === "*") return first * second;
+    if (operator === "/") return first / second;
+    return second;
+}
+
 // Event Listeners
 startBtn.addEventListener("click", startOS);
 nameInput.addEventListener("keypress", function (e) {
@@ -219,6 +325,18 @@ dockTerminal.addEventListener("click", () => {
 closeTerminal.addEventListener("click", () => {
     terminalWindow.style.display = "none";
     terminalWindow.classList.remove("show-modal");
+});
+
+dockCalculator.addEventListener("click", () => {
+    calculatorWindow.style.display = "block";
+    calculatorWindow.classList.remove("show-modal");
+    void calculatorWindow.offsetWidth; 
+    calculatorWindow.classList.add("show-modal");
+});
+
+closeCalculator.addEventListener("click", () => {
+    calculatorWindow.style.display = "none";
+    calculatorWindow.classList.remove("show-modal");
 });
 
 // Initialize Icons
