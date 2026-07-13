@@ -19,7 +19,30 @@ const closeCalculator = document.getElementById("close-calculator");
 const calcDisplay = document.getElementById("calc-display");
 const calcButtons = document.querySelectorAll(".calc-btn");
 
+const calendarWindow = document.getElementById("calendar-window");
+const dockCalendar = document.getElementById("calendar");
+const closeCalendar = document.getElementById("close-calendar");
+const calDay = document.getElementById("cal-day");
+const calDate = document.getElementById("cal-date");
+const calWish = document.getElementById("cal-wish");
+
+const dailyWishes = [
+    "Rest and recharge. Wishing you a beautifully peaceful Sunday!",
+    "Embrace the fresh start of a new week. You've got this!",
+    "Keep up the momentum! May your Tuesday be highly productive.",
+    "Happy Hump Day! You're halfway through, keep shining.",
+    "Almost there! May your Thursday bring you inspiration and joy.",
+    "Happy Friday! Finish strong and get ready for a wonderful weekend.",
+    "It's Saturday! Take time to do what makes your soul happy."
+];
+
 let currentPrompt = "";
+let topZIndex = 10;
+
+function bringToFront(windowElement) {
+    topZIndex++;
+    windowElement.style.zIndex = topZIndex;
+}
 
 // Real-time clock update
 function updateClock() {
@@ -307,11 +330,13 @@ nameInput.addEventListener("keypress", function (e) {
 
 dockTerminal.addEventListener("click", () => {
     terminalWindow.style.display = "block";
-
+    
     // Trigger pop-in animation
     terminalWindow.classList.remove("show-modal");
     void terminalWindow.offsetWidth; // force reflow
     terminalWindow.classList.add("show-modal");
+    
+    bringToFront(terminalWindow);
 
     if (!terminalBooted) {
         terminalBooted = true;
@@ -332,12 +357,45 @@ dockCalculator.addEventListener("click", () => {
     calculatorWindow.classList.remove("show-modal");
     void calculatorWindow.offsetWidth; 
     calculatorWindow.classList.add("show-modal");
+    
+    bringToFront(calculatorWindow);
 });
 
 closeCalculator.addEventListener("click", () => {
     calculatorWindow.style.display = "none";
     calculatorWindow.classList.remove("show-modal");
 });
+
+// Calendar Logic
+function updateCalendar() {
+    const now = new Date();
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    
+    calDay.innerText = days[now.getDay()];
+    calDate.innerText = `${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+    calWish.innerText = dailyWishes[now.getDay()];
+}
+
+dockCalendar.addEventListener("click", () => {
+    updateCalendar();
+    calendarWindow.style.display = "block";
+    calendarWindow.classList.remove("show-modal");
+    void calendarWindow.offsetWidth; 
+    calendarWindow.classList.add("show-modal");
+    
+    bringToFront(calendarWindow);
+});
+
+closeCalendar.addEventListener("click", () => {
+    calendarWindow.style.display = "none";
+    calendarWindow.classList.remove("show-modal");
+});
+
+// Bring to front on click anywhere inside the window
+terminalWindow.addEventListener("mousedown", () => bringToFront(terminalWindow));
+calculatorWindow.addEventListener("mousedown", () => bringToFront(calculatorWindow));
+calendarWindow.addEventListener("mousedown", () => bringToFront(calendarWindow));
 
 // Initialize Icons
 lucide.createIcons();
