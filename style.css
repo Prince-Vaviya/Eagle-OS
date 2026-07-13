@@ -224,6 +224,22 @@ pre {
     border-radius: 12px;
 }
 
+@keyframes modalOpen {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -45%) scale(0.95);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.75);
+    }
+}
+
+.window-container.show-modal {
+    animation: modalOpen 0.1s cubic-bezier(1, 1, 1, 1) forwards;
+}
+
 .dock-container {
     position: absolute;
     bottom: 10px;

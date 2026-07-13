@@ -65,7 +65,7 @@ let terminalBooted = false;
 function type() {
     if (i < boot.length) {
         terminal.innerHTML = boot.substring(0, i) + '<span class="cursor">█</span>';
-        i += 21; // Print characters fast
+        i += 3; // Print characters fast
         setTimeout(type, 1);
     } else {
         terminal.innerHTML = boot + '<span class="cursor">█</span>';
@@ -128,14 +128,24 @@ nameInput.addEventListener("keypress", function (e) {
 
 dockTerminal.addEventListener("click", () => {
     terminalWindow.style.display = "block";
+
+    // Trigger pop-in animation
+    terminalWindow.classList.remove("show-modal");
+    void terminalWindow.offsetWidth; // force reflow
+    terminalWindow.classList.add("show-modal");
+
     if (!terminalBooted) {
         terminalBooted = true;
-        type();
+        // Wait 500ms for modal to appear before starting terminal animation
+        setTimeout(() => {
+            type();
+        }, 600);
     }
 });
 
 closeTerminal.addEventListener("click", () => {
     terminalWindow.style.display = "none";
+    terminalWindow.classList.remove("show-modal");
 });
 
 // Initialize Icons
