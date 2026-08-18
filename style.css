@@ -243,6 +243,184 @@ pre {
     animation: modalOpen 0.1s cubic-bezier(1, 1, 1, 1) forwards;
 }
 
+/* Desktop Wallpaper Guide */
+.desktop-guide {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 660px;
+    max-width: 92vw;
+    background: rgba(255, 255, 255, 0.42);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 18px;
+    padding: 16px 20px;
+    box-shadow: 0 12px 35px rgba(28, 45, 30, 0.08), 0 2px 8px rgba(255, 255, 255, 0.3) inset;
+    z-index: 2;
+    color: #243328;
+    user-select: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.guide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2px;
+}
+
+.guide-title-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.guide-badge {
+    background: #4a5565;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+.guide-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+}
+
+.guide-close-btn {
+    background: rgba(0, 0, 0, 0.06);
+    border: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 11px;
+    color: #475569;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, color 0.2s;
+}
+
+.guide-close-btn:hover {
+    background: rgba(239, 68, 68, 0.2);
+    color: #dc2626;
+}
+
+.guide-subtitle {
+    font-size: 11px;
+    color: #52616b;
+    margin-bottom: 10px;
+}
+
+.guide-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.guide-card {
+    background: rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 12px;
+    padding: 8px 11px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+}
+
+.guide-card:hover {
+    background: rgba(255, 255, 255, 0.85);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border-color: rgba(74, 85, 101, 0.3);
+}
+
+.guide-card-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.guide-card-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.guide-card-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 2px;
+}
+
+.guide-card-desc {
+    font-size: 10.5px;
+    color: #64748b;
+    line-height: 1.35;
+}
+
+.guide-card-desc code {
+    background: rgba(0, 0, 0, 0.07);
+    padding: 1px 4px;
+    border-radius: 4px;
+    font-size: 9.5px;
+    color: #0f172a;
+}
+
+.guide-footer {
+    border-top: 1px dashed rgba(74, 85, 101, 0.2);
+    padding-top: 8px;
+    font-size: 10.5px;
+    color: #475569;
+    text-align: center;
+}
+
+.guide-toggle-btn {
+    position: absolute;
+    top: 38px;
+    left: 650px;
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #334155;
+    cursor: pointer;
+    z-index: 2;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s;
+}
+
+.guide-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateY(-1px);
+}
+
+@media (max-width: 650px) {
+    .guide-grid {
+        grid-template-columns: 1fr;
+    }
+    .desktop-guide {
+        top: 38px;
+        padding: 12px;
+    }
+}
+
 /* Calculator Styles */
 .calculator-window {
     width: 320px;
@@ -366,53 +544,6 @@ pre {
     color: #555;
     font-style: italic;
     padding: 0 10px;
-}
-
-/* Weather App */
-.weather-window {
-    width: 280px;
-}
-
-.weather-app {
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(15px);
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-    overflow: hidden;
-    color: white;
-    text-align: center;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-.transparent-titlebar {
-    height: 42px;
-    display: flex;
-    align-items: center;
-    padding: 0 16px;
-    cursor: grab;
-    background: rgba(0, 0, 0, 0.1);
-}
-
-.weather-content {
-    padding: 30px 20px;
-}
-
-#weather-city {
-    font-size: 24px;
-    font-weight: 500;
-    margin-bottom: 5px;
-}
-
-#weather-temp {
-    font-size: 64px;
-    font-weight: 200;
-    margin-bottom: 5px;
-}
-
-#weather-desc {
-    font-size: 18px;
-    opacity: 0.8;
 }
 
 /* Notes App */
@@ -550,6 +681,8 @@ pre {
     cursor: pointer;
     position: relative;
     transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    text-decoration: none;
+    color: inherit;
 }
 
 .dock-item:hover {
