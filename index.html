@@ -11,7 +11,7 @@
 
 <body>
     <!-- Desktop Environment -->
-    <div id="desktop" class="desktop" style="display: none;">
+    <div id="desktop" class="desktop">
         <!-- Status Bar -->
         <div class="status-bar">
             <div class="status-left">
@@ -115,7 +115,7 @@
             </div>
 
             <div class="guide-footer">
-                <span>💡 <strong>Tip:</strong> Click any card or dock icon below to launch</span>
+                <span>💡 <strong>Tip:</strong> Click any dock icon below to launch</span>
             </div>
         </div>
 
@@ -361,43 +361,6 @@
             </div>
         </div>
     </div>
-
-    <div id="login-overlay" class="login-overlay">
-        <!-- Logo Screen -->
-        <div id="logo-container" class="logo-container">
-            <pre class="ascii-logo">
-         -@@@@@@@@@@@@@@@@@@@:
-        -@@@@@  #@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@.
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @@@@
-@          =@@@@@@@@@@@@@@@@@@@@@@@@@  =@@
-          .@    *@@@@@@@@@@@@@@@@@@@@%
-           @@      *@@@@@@@@@@@@@@@@@@@@
-            @@@.      @@@@@@@@@@+@@@@@@@.
-             @@@  @      @@@@@@@@  :@@@@@
-             @@@@  @@      @@@@@@:   +@@@
-              @@@:   @@@      @@@@@#     @@@
-              @@@@   @@@@      @@@@@      @@
-              @@@@ . @@@        #@@@       @
-             :@@@@   @@@@        @@*
-             @@@@.  .@@@@        .@
-            .@@@@.    @@@#
-            @@@@      @@@@
-           @@       -@@%
-            </pre>
-            <p id="boot-status">Booting up</p>
-        </div>
-
-        <!-- Login Box -->
-        <div id="login-box" class="login-box" style="display: none;">
-            <h2>SYSTEM INITIALIZATION</h2>
-            <p>Ready for mission.</p>
-            <input type="text" id="name-input" placeholder="Your Name" autocomplete="off" />
-            <button id="start-btn">INITIALIZE</button>
-        </div>
-    </div>
 </body>
 <script src="index.js"></script>
-
 </html>

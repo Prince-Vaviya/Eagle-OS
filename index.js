@@ -1,9 +1,4 @@
 const terminal = document.getElementById("terminal");
-const loginOverlay = document.getElementById("login-overlay");
-const nameInput = document.getElementById("name-input");
-const startBtn = document.getElementById("start-btn");
-const logoContainer = document.getElementById("logo-container");
-const loginBox = document.getElementById("login-box");
 
 // Desktop elements
 const desktop = document.getElementById("desktop");
@@ -78,34 +73,37 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
-// Handle initial boot sequence
-window.addEventListener("DOMContentLoaded", () => {
-    const savedUsername = localStorage.getItem("eagle_os_username");
+let currentUsername = "guest";
+let paddedUsername = "guest".padEnd(65, " ");
 
-    if (savedUsername) {
-        // Returning user: skip boot animation and login
-        logoContainer.style.display = "none";
-        nameInput.value = savedUsername;
-        startOS();
-    } else {
-        // First time user: show boot animation
-        const bootStatus = document.getElementById("boot-status");
-        let dots = 0;
-        const dotInterval = setInterval(() => {
-            dots = (dots + 1) % 4;
-            bootStatus.innerText = "Booting up" + ".".repeat(dots);
-        }, 161);
+let boot = `┌──────────────────────────────────────────────────────────────────────────────┐
+│ Eagle OS v0.1-dev                                              arm64         │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ User      : ${paddedUsername}│
+│ Host      : eagle                                                            │
+│ Kernel    : Eagle Kernel                                                     │
+│ AI Engine : Eagle-X                                                          │
+│ Security  : ● ACTIVE                                                         │
+│ Firewall  : ● ENABLED                                                        │
+│ Network   : ● CONNECTED                                                      │
+│ Status    : READY                                                            │
+└──────────────────────────────────────────────────────────────────────────────┘
 
-        setTimeout(() => {
-            clearInterval(dotInterval);
-            logoContainer.style.display = "none";
-            loginBox.style.display = "flex";
-            nameInput.focus();
-        }, 5100);
-    }
-});
+███████╗ █████╗  ██████╗ ██╗     ███████╗
+██╔════╝██╔══██╗██╔════╝ ██║     ██╔════╝
+█████╗  ███████║██║  ███╗██║     █████╗
+██╔══╝  ██╔══██║██║   ██║██║     ██╔══╝
+███████╗██║  ██║╚██████╔╝███████╗███████╗
+╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚══════╝
 
-let boot = "";
+Booting Eagle Operating System...
+Initializing AI Engine...
+Loading Portfolio Modules...
+Starting Services...
+Authentication Successful.
+
+`;
+
 let i = 0;
 let terminalBooted = false;
 
@@ -116,10 +114,7 @@ function type() {
         i += 3; // Print characters fast
         setTimeout(type, 1);
     } else {
-        let username = localStorage.getItem("eagle_os_username") || "Guest";
-        let lowercaseName = username.toLowerCase().replace(/\s+/g, '_');
-        currentPrompt = `eagle@${lowercaseName}:~$ `;
-        
+        currentPrompt = `eagle@guest:~$ `;
         boot += currentPrompt;
         terminal.innerHTML = boot + '<span class="cursor">█</span>';
         initInteractiveTerminal();
@@ -176,9 +171,7 @@ function processCommand(cmd) {
             boot += new Date().toString() + "\n";
             break;
         case "whoami":
-            let username = localStorage.getItem("eagle_os_username") || "Guest";
-            let lowercaseName = username.toLowerCase().replace(/\s+/g, '_');
-            boot += lowercaseName + "\n";
+            boot += "guest\n";
             break;
         case "echo":
             boot += args.slice(1).join(" ") + "\n";
@@ -187,52 +180,6 @@ function processCommand(cmd) {
             boot += `Command not found: ${baseCmd}\n`;
             break;
     }
-}
-
-function startOS() {
-    let rawName = nameInput.value.trim();
-    if (!rawName) rawName = "Guest";
-
-    // Save to local storage
-    localStorage.setItem("eagle_os_username", rawName);
-
-    let username = rawName.substring(0, 20);
-    let paddedUsername = username.padEnd(65, " ");
-    let lowercaseName = username.toLowerCase().replace(/\s+/g, '_');
-
-    boot = `┌──────────────────────────────────────────────────────────────────────────────┐
-│ Eagle OS v0.1-dev                                              arm64         │
-├──────────────────────────────────────────────────────────────────────────────┤
-│ User      : ${paddedUsername}│
-│ Host      : eagle                                                            │
-│ Kernel    : Eagle Kernel                                                     │
-│ AI Engine : Eagle-X                                                          │
-│ Security  : ● ACTIVE                                                         │
-│ Firewall  : ● ENABLED                                                        │
-│ Network   : ● CONNECTED                                                      │
-│ Status    : READY                                                            │
-└──────────────────────────────────────────────────────────────────────────────┘
-
-███████╗ █████╗  ██████╗ ██╗     ███████╗
-██╔════╝██╔══██╗██╔════╝ ██║     ██╔════╝
-█████╗  ███████║██║  ███╗██║     █████╗
-██╔══╝  ██╔══██║██║   ██║██║     ██╔══╝
-███████╗██║  ██║╚██████╔╝███████╗███████╗
-╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚══════╝
-
-Booting Eagle Operating System...
-Initializing AI Engine...
-Loading Portfolio Modules...
-Starting Services...
-Authentication Successful.
-
-`;
-
-    loginOverlay.style.opacity = '0';
-    setTimeout(() => {
-        loginOverlay.style.display = 'none';
-        desktop.style.display = 'block'; // Show desktop
-    }, 100);
 }
 
 // Calculator Logic
@@ -336,13 +283,6 @@ function calculate(first, second, operator) {
 }
 
 // Event Listeners
-startBtn.addEventListener("click", startOS);
-nameInput.addEventListener("keypress", function (e) {
-    if (e.key === 'Enter') {
-        startOS();
-    }
-});
-
 dockTerminal.addEventListener("click", () => {
     terminalWindow.style.display = "block";
     
