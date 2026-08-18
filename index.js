@@ -13,6 +13,10 @@ const closeTerminal = document.getElementById("close-terminal");
 const clock = document.getElementById("clock");
 const terminalInput = document.getElementById("terminal-input");
 
+const finderWindow = document.getElementById("finder-window");
+const dockFinder = document.getElementById("dock-finder");
+const closeFinder = document.getElementById("close-finder");
+
 const calculatorWindow = document.getElementById("calculator-window");
 const dockCalculator = document.getElementById("calculator");
 const closeCalculator = document.getElementById("close-calculator");
@@ -427,6 +431,40 @@ playBtn.addEventListener("click", () => {
     }
 });
 
+// Finder App Toggles & Sidebar Tabs
+dockFinder.addEventListener("click", () => {
+    finderWindow.style.display = "block";
+    finderWindow.classList.remove("show-modal");
+    void finderWindow.offsetWidth; 
+    finderWindow.classList.add("show-modal");
+    bringToFront(finderWindow);
+});
+closeFinder.addEventListener("click", () => {
+    finderWindow.style.display = "none";
+});
+
+const finderSidebarItems = document.querySelectorAll(".finder-sidebar .sidebar-item");
+const finderTabPanes = document.querySelectorAll(".finder-tab-pane");
+
+finderSidebarItems.forEach(item => {
+    item.addEventListener("click", () => {
+        const tab = item.dataset.tab;
+        finderSidebarItems.forEach(i => i.classList.remove("active"));
+        item.classList.add("active");
+
+        finderTabPanes.forEach(pane => {
+            pane.style.display = "none";
+            pane.classList.remove("active");
+        });
+
+        const targetPane = document.getElementById(`finder-tab-${tab}`);
+        if (targetPane) {
+            targetPane.style.display = "flex";
+            targetPane.classList.add("active");
+        }
+    });
+});
+
 // New App Toggles
 dockNotes.addEventListener("click", () => {
     notesWindow.style.display = "block";
@@ -451,6 +489,7 @@ closePlayer.addEventListener("click", () => {
 });
 
 // Bring to front on click anywhere inside the window
+finderWindow.addEventListener("mousedown", () => bringToFront(finderWindow));
 terminalWindow.addEventListener("mousedown", () => bringToFront(terminalWindow));
 calculatorWindow.addEventListener("mousedown", () => bringToFront(calculatorWindow));
 calendarWindow.addEventListener("mousedown", () => bringToFront(calendarWindow));
@@ -493,6 +532,9 @@ function makeDraggable(element, handle) {
         handle.style.cursor = 'grab';
     });
 }
+
+const finderTitlebar = finderWindow.querySelector('.titlebar');
+makeDraggable(finderWindow, finderTitlebar);
 
 const terminalTitlebar = terminalWindow.querySelector('.titlebar');
 makeDraggable(terminalWindow, terminalTitlebar);

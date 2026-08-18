@@ -225,9 +225,62 @@
             </div>
         </div>
 
+        <!-- Window Container for Finder -->
+        <div id="finder-window" class="window-container finder-window" style="display: none;">
+            <div class="finder-app">
+                <div class="titlebar">
+                    <span class="dot red" id="close-finder"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="title">Finder — Documents</span>
+                </div>
+                <div class="finder-body">
+                    <!-- Sidebar -->
+                    <div class="finder-sidebar">
+                        <div class="sidebar-section">
+                            <span class="sidebar-label">Favorites</span>
+                            <div class="sidebar-item active" data-tab="resume">
+                                <span class="sidebar-icon">📄</span> Resume
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main View -->
+                    <div class="finder-main">
+                        <!-- Tab 1: Resume -->
+                        <div class="finder-tab-pane active" id="finder-tab-resume">
+                            <div class="finder-toolbar">
+                                <div class="file-meta-header">
+                                    <span class="file-badge">PDF</span>
+                                    <span class="file-title">Prince_Vaviya_Resume.pdf</span>
+                                </div>
+                                <div class="finder-actions">
+                                    <a class="finder-btn finder-btn-primary" href="Prince_Resume_MOCK.pdf" download="Prince_Vaviya_Resume.pdf">⬇️ Download PDF</a>
+                                    <a class="finder-btn" href="Prince_Resume_MOCK.pdf" target="_blank" rel="noopener noreferrer">↗️ Fullscreen</a>
+                                </div>
+                            </div>
+                            <div class="finder-preview-area">
+                                <iframe src="Prince_Resume_MOCK.pdf" class="finder-pdf-frame" title="Resume PDF Preview"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Dock -->
         <div class="dock-container">
             <div class="dock">
+                <div class="dock-item" id="dock-finder">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        aria-hidden="true" role="img" width="68" height="68" viewBox="0 0 24 24"
+                        style="color: rgb(74, 85, 101); opacity: 1; transform: rotate(0deg);">
+                        <path fill="currentColor"
+                            d="M4 4h6v2H4zm0 14h16v2H4zM20 8h2v10h-2zM2 6h2v12H2zm8 0h10v2H10z">
+                        </path>
+                    </svg>
+                    <span class="dock-tooltip">Finder</span>
+                </div>
                 <div class="dock-item" id="dock-terminal">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                         aria-hidden="true" role="img" width="46" height="55" viewBox="0 0 16 16"
