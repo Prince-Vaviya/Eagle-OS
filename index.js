@@ -508,7 +508,13 @@ if (closeGuideBtn && desktopGuide && guideToggleBtn) {
     });
 }
 
-// Click guide cards to launch respective apps
+// Click guide cards & buttons to launch respective apps
+const guideOpenFinderBtn = document.getElementById("guide-open-finder-btn");
+if (guideOpenFinderBtn) guideOpenFinderBtn.addEventListener("click", () => dockFinder && dockFinder.click());
+
+const guideCardFinder = document.getElementById("guide-app-finder");
+if (guideCardFinder) guideCardFinder.addEventListener("click", () => dockFinder && dockFinder.click());
+
 const guideCardTerminal = document.getElementById("guide-app-terminal");
 if (guideCardTerminal) guideCardTerminal.addEventListener("click", () => dockTerminal && dockTerminal.click());
 
@@ -520,9 +526,6 @@ if (guideCardNotes) guideCardNotes.addEventListener("click", () => dockNotes && 
 
 const guideCardCalendar = document.getElementById("guide-app-calendar");
 if (guideCardCalendar) guideCardCalendar.addEventListener("click", () => dockCalendar && dockCalendar.click());
-
-const guideCardCalculator = document.getElementById("guide-app-calculator");
-if (guideCardCalculator) guideCardCalculator.addEventListener("click", () => dockCalculator && dockCalculator.click());
 
 // Initialize Icons
 lucide.createIcons();

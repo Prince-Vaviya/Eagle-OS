@@ -5,8 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="favicon.png">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <title>Document</title>
+    <title>Portfolio</title>
 </head>
 
 <body>
@@ -62,13 +65,31 @@
                 <button id="close-guide-btn" class="guide-close-btn" title="Hide Guide">✕</button>
             </div>
             
+            <div class="guide-resume-banner">
+                <div class="guide-resume-text">
+                    <strong>Looking for my Resume?</strong> Preview in Finder or download the PDF directly.
+                </div>
+                <div class="guide-resume-buttons">
+                    <button class="guide-resume-btn" id="guide-open-finder-btn">📄 Open Finder</button>
+                    <a class="guide-resume-btn guide-resume-btn-primary" href="Prince_Vaviya_Resumé.pdf" download="Prince_Vaviya_Resume.pdf">⬇️ Download PDF</a>
+                </div>
+            </div>
+
             <p class="guide-subtitle">Recommended sequence to explore the apps:</p>
 
             <div class="guide-grid">
+                <div class="guide-card" id="guide-app-finder">
+                    <div class="guide-card-icon">📂</div>
+                    <div class="guide-card-info">
+                        <div class="guide-card-name">1. Finder</div>
+                        <div class="guide-card-desc">Find my resume with live in-OS PDF preview & download.</div>
+                    </div>
+                </div>
+
                 <div class="guide-card" id="guide-app-terminal">
                     <div class="guide-card-icon">⌨️</div>
                     <div class="guide-card-info">
-                        <div class="guide-card-name">1. Terminal</div>
+                        <div class="guide-card-name">2. Terminal</div>
                         <div class="guide-card-desc">Interactive CLI. Type <code>help</code>, <code>whoami</code>, or system commands.</div>
                     </div>
                 </div>
@@ -76,7 +97,7 @@
                 <div class="guide-card" id="guide-app-player">
                     <div class="guide-card-icon">🎵</div>
                     <div class="guide-card-info">
-                        <div class="guide-card-name">2. Music</div>
+                        <div class="guide-card-name">3. Music</div>
                         <div class="guide-card-desc">Play background lo-fi tracks while browsing the desktop.</div>
                     </div>
                 </div>
@@ -84,24 +105,16 @@
                 <div class="guide-card" id="guide-app-notes">
                     <div class="guide-card-icon">📝</div>
                     <div class="guide-card-info">
-                        <div class="guide-card-name">3. Notes</div>
-                        <div class="guide-card-desc">Quick notepad to draft thoughts, or save text.</div>
+                        <div class="guide-card-name">4. Notes</div>
+                        <div class="guide-card-desc">Quick notepad to draft thoughts or save text.</div>
                     </div>
                 </div>
 
                 <div class="guide-card" id="guide-app-calendar">
                     <div class="guide-card-icon">📅</div>
                     <div class="guide-card-info">
-                        <div class="guide-card-name">4. Calendar</div>
-                        <div class="guide-card-desc">Check current date, day & daily inspiration.</div>
-                    </div>
-                </div>
-
-                <div class="guide-card" id="guide-app-calculator">
-                    <div class="guide-card-icon">🧮</div>
-                    <div class="guide-card-info">
-                        <div class="guide-card-name">5. Calculator</div>
-                        <div class="guide-card-desc">Classic retro keypad for quick computations & percentages.</div>
+                        <div class="guide-card-name">5. Calendar & Calc</div>
+                        <div class="guide-card-desc">Check date planner & retro calculator tools.</div>
                     </div>
                 </div>
 
@@ -109,7 +122,7 @@
                     <div class="guide-card-icon">🐙</div>
                     <div class="guide-card-info">
                         <div class="guide-card-name">6. GitHub ↗</div>
-                        <div class="guide-card-desc">Visit Github profile.</div>
+                        <div class="guide-card-desc">Visit GitHub profile to explore all repositories.</div>
                     </div>
                 </a>
             </div>
